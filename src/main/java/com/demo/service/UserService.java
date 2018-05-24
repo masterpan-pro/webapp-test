@@ -1,8 +1,10 @@
 package com.demo.service;
 
-import java.util.List;
 import com.demo.entity.User;
-public interface UserService{
+
+import java.util.List;
+
+public interface UserService {
 
     int insert(User user);
 

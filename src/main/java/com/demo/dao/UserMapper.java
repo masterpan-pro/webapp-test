@@ -1,10 +1,10 @@
 package com.demo.dao;
 
+import com.demo.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import com.demo.entity.User;
 
 @Mapper
 public interface UserMapper {

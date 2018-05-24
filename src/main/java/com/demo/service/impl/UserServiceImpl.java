@@ -1,35 +1,36 @@
 package com.demo.service.impl;
 
+import com.demo.dao.UserMapper;
+import com.demo.entity.User;
+import com.demo.service.UserService;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 import java.util.List;
-import com.demo.entity.User;
-import com.demo.dao.UserMapper;
-import com.demo.service.UserService;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Resource
     private UserMapper userMapper;
 
     @Override
-    public int insert(User user){
+    public int insert(User user) {
         return userMapper.insert(user);
     }
 
     @Override
-    public int insertSelective(User user){
+    public int insertSelective(User user) {
         return userMapper.insertSelective(user);
     }
 
     @Override
-    public int insertList(List<User> users){
+    public int insertList(List<User> users) {
         return userMapper.insertList(users);
     }
 
     @Override
-    public int update(User user){
+    public int update(User user) {
         return userMapper.update(user);
     }
 
