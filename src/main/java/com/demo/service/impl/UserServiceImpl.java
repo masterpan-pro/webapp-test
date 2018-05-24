@@ -4,11 +4,13 @@ import com.demo.dao.UserMapper;
 import com.demo.entity.User;
 import com.demo.service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @Service
+@Transactional("txManager")
 public class UserServiceImpl implements UserService {
 
     @Resource
