@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Slf4j
@@ -22,7 +22,7 @@ public class UserController {
 
     @RequestMapping("index")
     public ModelAndView index(ModelAndView modelAndView) {
-        User user = new User(null, "admin", "123456", new Date());
+        User user = new User(null, "admin", "123456", new Timestamp(System.currentTimeMillis()));
         userService.insert(user);
         List<User> users = userService.find();
         log.debug("{}", users);
