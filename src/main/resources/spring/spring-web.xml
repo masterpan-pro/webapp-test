@@ -13,9 +13,10 @@
     <mvc:annotation-driven/>
     <mvc:default-servlet-handler/>
     <context:annotation-config/>
-    <context:component-scan base-package="com.demo.controller"/>
-    <mvc:resources mapping="/webjars/**" location="/webjars/"/>
-    <mvc:resources mapping="/favicon.ico" location="/WEB-INF/favicon.ico"/>
+    <context:component-scan base-package="com.demo.controller" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+
     <bean class="com.demo.config.ApplicationStartListener"/>
 
     <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
@@ -49,5 +50,8 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+
+    <mvc:resources mapping="/webjars/**" location="/webjars/"/>
+    <mvc:resources mapping="/favicon.ico" location="/WEB-INF/favicon.ico"/>
 
 </beans>
