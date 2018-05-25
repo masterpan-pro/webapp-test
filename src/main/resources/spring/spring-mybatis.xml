@@ -10,11 +10,8 @@
 	http://www.springframework.org/schema/tx
 	http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:annotation-config/>
     <context:property-placeholder location="classpath:jdbc.properties"/>
     <tx:annotation-driven transaction-manager="txManager"/>
-
-    <bean class="com.demo.config.ApplicationStartListener" />
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.demo.dao"/>
