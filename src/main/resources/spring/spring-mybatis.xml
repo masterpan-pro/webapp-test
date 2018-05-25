@@ -14,25 +14,28 @@
     <context:property-placeholder location="classpath:jdbc.properties"/>
     <tx:annotation-driven transaction-manager="txManager"/>
 
+    <bean class="com.demo.config.ApplicationStartListener" />
+
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.demo.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-        <constructor-arg ref="hikariConfig"/>
-    </bean>
-    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-        <property name="poolName" value="springHikariCP"/>
-        <property name="connectionTestQuery" value="SELECT 1"/>
-        <property name="dataSourceClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"/>
-        <property name="dataSourceProperties">
-            <props>
-                <prop key="url">${jdbc.url}</prop>
-                <prop key="user">${jdbc.username}</prop>
-                <prop key="password">${jdbc.password}</prop>
-            </props>
-        </property>
+        <constructor-arg name="configuration">
+            <bean class="com.zaxxer.hikari.HikariConfig">
+                <property name="poolName" value="springHikariCP"/>
+                <property name="connectionTestQuery" value="SELECT 1"/>
+                <property name="dataSourceClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"/>
+                <property name="dataSourceProperties">
+                    <props>
+                        <prop key="url">${jdbc.url}</prop>
+                        <prop key="user">${jdbc.username}</prop>
+                        <prop key="password">${jdbc.password}</prop>
+                    </props>
+                </property>
+            </bean>
+        </constructor-arg>
     </bean>
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
