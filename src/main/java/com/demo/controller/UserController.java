@@ -31,6 +31,12 @@ public class UserController {
         return modelAndView;
     }
 
+    @RequestMapping("webjar")
+    public ModelAndView webjar(ModelAndView modelAndView) {
+        modelAndView.setViewName("webjar");
+        return modelAndView;
+    }
+
     @ResponseBody
     @RequestMapping("json")
     public List<User> index() {
