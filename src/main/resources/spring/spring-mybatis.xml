@@ -12,6 +12,7 @@
 
     <context:property-placeholder location="classpath:jdbc.properties"/>
     <tx:annotation-driven transaction-manager="txManager"/>
+    <context:component-scan base-package="com.demo.dao,com.demo.service"/>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.demo.dao"/>
