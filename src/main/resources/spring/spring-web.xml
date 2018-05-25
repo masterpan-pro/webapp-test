@@ -11,11 +11,11 @@
 	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <mvc:annotation-driven/>
-    <context:annotation-config/>
     <mvc:default-servlet-handler/>
+    <context:annotation-config/>
     <context:component-scan base-package="com.demo"/>
 
-    <bean class="com.demo.config.ApplicationStartListener" />
+    <bean class="com.demo.config.ApplicationStartListener"/>
 
     <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
         <property name="templateEngine">
