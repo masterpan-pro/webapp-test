@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLConnection;
-import java.nio.charset.Charset;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
@@ -58,55 +57,54 @@ public class UserController {
     public void downloadA(HttpServletRequest request,
                           HttpServletResponse response,
                           @RequestParam(value = "ids[]") List<Long> ids) throws IOException {
-        // 通过ids获取链接
-        List<String> uris = Arrays.asList(
-                "/Users/pengpan/Documents/九江银行网贷平台资金存管系统接口规范V2.80.pdf",
-                "/Users/pengpan/Documents/hello.txt");
+        List<String> pathArr;
         File file;
         String tempZipFile = null;
-        if (uris.isEmpty()) {
-            // 文件为空
-            String errorMessage = "Sorry. The file you are looking for does not exist";
-            OutputStream outputStream = response.getOutputStream();
-            outputStream.write(errorMessage.getBytes(Charset.forName("UTF-8")));
-            outputStream.close();
+        if (ids.size() == 1) {
+            pathArr = Arrays.asList("/Users/pengpan/Documents/文档.txt");
+        } else {
+            pathArr = Arrays.asList(
+                    "/Users/pengpan/Documents/文档.txt",
+                    "/Users/pengpan/Documents/doc.txt");
+        }
+        if (pathArr.isEmpty()) {
+            response.setContentType("text/html;charset=utf-8");
+            response.getWriter().write("<script>alert('未找到对应文件！');history.go(-1);</script>");
+            response.getWriter().flush();
             return;
-        } else if (uris.size() > 1) {
-            //多文件下载，压缩
+        } else if (pathArr.size() == 1) {
+            file = new File(pathArr.get(0));
+        } else {
             tempZipFile = request.getSession().getServletContext().getRealPath("/").concat("/" + System.currentTimeMillis() + ".zip");
             byte[] buffer = new byte[1024];
             try {
                 FileOutputStream fos = new FileOutputStream(tempZipFile);
                 ZipOutputStream zos = new ZipOutputStream(fos);
-
-                for (String uri : uris) {
-                    File zipFIle = new File(uri);
-                    ZipEntry ze = new ZipEntry(zipFIle.getName());
-                    zos.putNextEntry(ze);
-                    FileInputStream in = new FileInputStream(zipFIle);
-                    int len;
-                    while ((len = in.read(buffer)) > 0) {
-                        zos.write(buffer, 0, len);
+                for (String uri : pathArr) {
+                    File zipFile = new File(uri);
+                    if (zipFile.exists()) {
+                        ZipEntry ze = new ZipEntry(zipFile.getName());
+                        zos.putNextEntry(ze);
+                        FileInputStream in = new FileInputStream(zipFile);
+                        int len;
+                        while ((len = in.read(buffer)) > 0) {
+                            zos.write(buffer, 0, len);
+                        }
+                        in.close();
                     }
-                    in.close();
                 }
                 zos.closeEntry();
-                //remember close it
                 zos.close();
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
             file = new File(tempZipFile);
-        } else {
-            file = new File(uris.get(0));
         }
 
         if (!file.exists()) {
-            String errorMessage = "Sorry. The file you are looking for does not exist";
-            System.out.println(errorMessage);
-            OutputStream outputStream = response.getOutputStream();
-            outputStream.write(errorMessage.getBytes(Charset.forName("UTF-8")));
-            outputStream.close();
+            response.setContentType("text/html;charset=utf-8");
+            response.getWriter().write("<script>alert('文件不存在！');history.go(-1);</script>");
+            response.getWriter().flush();
             return;
         }
         InputStream in = new FileInputStream(file);
