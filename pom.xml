@@ -19,6 +19,7 @@
         <jackson.version>2.9.5</jackson.version>
         <thymeleaf.version>2.1.6.RELEASE</thymeleaf.version>
         <mysql-connector-java.version>5.1.30</mysql-connector-java.version>
+        <aspectj.version>1.9.0</aspectj.version>
     </properties>
 
     <dependencies>
@@ -129,6 +130,17 @@
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
             <version>3.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
         </dependency>
 
     </dependencies>
