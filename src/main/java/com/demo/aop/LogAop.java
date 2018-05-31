@@ -36,8 +36,7 @@ public class LogAop {
         String methodName = joinPoint.getSignature().getName();
         Object result = null;
         try {
-            log.info("type:{}", operationLog.type());
-            log.info("ip:{}", getIp());
+            log.info("type:{}", operationLog.description());
             log.info("【环绕通知中的--->前置通知】：the method 【" + methodName + "】 begins with " + Arrays.asList(joinPoint.getArgs()));
             //执行目标方法
             result = joinPoint.proceed();
@@ -49,27 +48,5 @@ public class LogAop {
         return result;
     }
 
-    /**
-     * 获取ip
-     */
-    public String getIp() {
-        String ip = request.getHeader("x-forwarded-for");
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("HTTP_CLIENT_IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
-        }
-        return ip;
-    }
 }
 

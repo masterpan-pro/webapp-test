@@ -47,7 +47,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @OperationLog(type = "hello")
+    @OperationLog(description = "hello")
     @ResponseBody
     @RequestMapping("json")
     public List<User> index() {
