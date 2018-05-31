@@ -25,7 +25,7 @@
             <bean class="com.zaxxer.hikari.HikariConfig">
                 <property name="poolName" value="HikariCP"/>
                 <property name="connectionTestQuery" value="SELECT 1"/>
-                <property name="dataSourceClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"/>
+                <property name="dataSourceClassName" value="org.h2.jdbcx.JdbcDataSource"/>
                 <property name="dataSourceProperties">
                     <props>
                         <prop key="url">${jdbc.url}</prop>

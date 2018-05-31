@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS user;
+CREATE TABLE user(
+	id BIGINT (15) NOT NULL AUTO_INCREMENT COMMENT 'id',
+	user_name VARCHAR (50) NOT NULL DEFAULT '' COMMENT 'userName',
+	password VARCHAR (50) NOT NULL DEFAULT '' COMMENT 'password',
+	birthday DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT 'birthday',
+	PRIMARY KEY (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO user ( id, user_name, password, birthday ) VALUES ( null, 'admin', '123456', '2018-05-31 12:52:50');
