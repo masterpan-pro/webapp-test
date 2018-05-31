@@ -1,4 +1,4 @@
-package com.test;
+package java.com.test;
 
 /**
  * Tests
