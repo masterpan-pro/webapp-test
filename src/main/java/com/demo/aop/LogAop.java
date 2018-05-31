@@ -55,12 +55,12 @@ public class LogAop {
             // 执行目标方法
             result = joinPoint.proceed();
             log.info("【环绕通知中的--->返回通知】");
-            l.setTimeout(String.valueOf(System.currentTimeMillis() - startTime));
+            l.setTimeout(String.valueOf(System.currentTimeMillis() - startTime).concat("ms"));
         } catch (Throwable e) {
             log.info("【环绕通知中的--->异常通知】", e);
             l.setType("error");
             l.setException(e.getMessage());
-            l.setTimeout(String.valueOf(System.currentTimeMillis() - startTime));
+            l.setTimeout(String.valueOf(System.currentTimeMillis() - startTime).concat("ms"));
         } finally {
             logService.update(l);
         }
