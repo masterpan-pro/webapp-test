@@ -1,10 +1,10 @@
 package com.demo.dao;
 
+import com.demo.entity.Log;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import com.demo.entity.Log;
 
 @Mapper
 public interface LogMapper {
@@ -15,4 +15,6 @@ public interface LogMapper {
     int insertList(@Param("logs") List<Log> logs);
 
     int update(@Param("log") Log log);
+
+    List<Log> find();
 }

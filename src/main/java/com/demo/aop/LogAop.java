@@ -1,6 +1,8 @@
 package com.demo.aop;
 
 import com.demo.annotation.OperationLog;
+import com.demo.entity.Log;
+import com.demo.service.LogService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -9,7 +11,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
+import java.util.Date;
 
 /**
  * 操作日志记录aop
@@ -20,6 +22,9 @@ public class LogAop {
 
     @Autowired
     private HttpServletRequest request;
+
+    @Autowired
+    private LogService logService;
 
     /**
      * 切点
@@ -33,18 +38,32 @@ public class LogAop {
      */
     @Around(value = "pointCut(operationLog)", argNames = "joinPoint,operationLog")
     public Object logAround(ProceedingJoinPoint joinPoint, OperationLog operationLog) {
-        String methodName = joinPoint.getSignature().getName();
         Object result = null;
+        log.info("【环绕通知中的--->前置通知】");
+        long startTime = System.currentTimeMillis();
+        Log l = Log.builder()
+                .type("info")
+                .title(operationLog.description())
+                .remoteAddr(request.getRemoteAddr())
+                .requestUri(request.getRequestURI())
+                .method(request.getMethod())
+                .params(request.getParameterMap().toString())
+                .operateDate(new Date())
+                .build();
+        logService.insertSelective(l);
         try {
-            log.info("type:{}", operationLog.description());
-            log.info("【环绕通知中的--->前置通知】：the method 【" + methodName + "】 begins with " + Arrays.asList(joinPoint.getArgs()));
-            //执行目标方法
+            // 执行目标方法
             result = joinPoint.proceed();
-            log.info("【环绕通知中的--->返回通知】：the method 【" + methodName + "】 ends with " + result);
+            log.info("【环绕通知中的--->返回通知】");
+            l.setTimeout(String.valueOf(System.currentTimeMillis() - startTime));
         } catch (Throwable e) {
-            log.info("【环绕通知中的--->异常通知】：the method 【" + methodName + "】 occurs exception " + e);
+            log.info("【环绕通知中的--->异常通知】", e);
+            l.setType("error");
+            l.setException(e.getMessage());
+            l.setTimeout(String.valueOf(System.currentTimeMillis() - startTime));
+        } finally {
+            logService.update(l);
         }
-        log.info("【环绕通知中的--->后置通知】：-----------------end.----------------------");
         return result;
     }
 

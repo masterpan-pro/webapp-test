@@ -1,7 +1,9 @@
 package com.demo.controller;
 
 import com.demo.annotation.OperationLog;
+import com.demo.entity.Log;
 import com.demo.entity.User;
+import com.demo.service.LogService;
 import com.demo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private LogService logService;
+
     @RequestMapping("index")
     public ModelAndView index(ModelAndView modelAndView) {
         User user = new User(null, "admin", "123456", new Timestamp(System.currentTimeMillis()));
@@ -47,11 +52,17 @@ public class UserController {
         return modelAndView;
     }
 
-    @OperationLog(description = "hello")
+    @OperationLog(description = "查询User数据")
     @ResponseBody
     @RequestMapping("json")
     public List<User> index() {
         return userService.find();
+    }
+
+    @ResponseBody
+    @RequestMapping("log")
+    public List<Log> log() {
+        return logService.find();
     }
 
     @ResponseBody

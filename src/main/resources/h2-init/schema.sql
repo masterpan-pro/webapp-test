@@ -6,7 +6,6 @@ CREATE TABLE user(
 	birthday DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT 'birthday',
 	PRIMARY KEY (id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-INSERT INTO user ( id, user_name, password, birthday ) VALUES ( null, 'admin', '123456', '2018-05-31 12:52:50');
 
 DROP TABLE IF EXISTS log;
 CREATE TABLE log(

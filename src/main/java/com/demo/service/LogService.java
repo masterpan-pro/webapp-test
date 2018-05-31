@@ -1,8 +1,10 @@
 package com.demo.service;
 
-import java.util.List;
 import com.demo.entity.Log;
-public interface LogService{
+
+import java.util.List;
+
+public interface LogService {
 
     int insert(Log log);
 
@@ -11,4 +13,6 @@ public interface LogService{
     int insertList(List<Log> logs);
 
     int update(Log log);
+
+    List<Log> find();
 }

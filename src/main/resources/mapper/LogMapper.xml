@@ -60,16 +60,16 @@
     <insert id="insertSelective" useGeneratedKeys="true" keyProperty="log.id">
         INSERT INTO log
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="log.id!=null"> id,</if>
-            <if test="log.type!=null"> type,</if>
-            <if test="log.title!=null"> title,</if>
-            <if test="log.remoteAddr!=null"> remote_addr,</if>
-            <if test="log.requestUri!=null"> request_uri,</if>
-            <if test="log.method!=null"> method,</if>
-            <if test="log.params!=null"> params,</if>
-            <if test="log.exception!=null"> exception,</if>
-            <if test="log.operateDate!=null"> operate_date,</if>
-            <if test="log.timeout!=null"> timeout,</if>
+            <if test="log.id!=null">id,</if>
+            <if test="log.type!=null">type,</if>
+            <if test="log.title!=null">title,</if>
+            <if test="log.remoteAddr!=null">remote_addr,</if>
+            <if test="log.requestUri!=null">request_uri,</if>
+            <if test="log.method!=null">method,</if>
+            <if test="log.params!=null">params,</if>
+            <if test="log.exception!=null">exception,</if>
+            <if test="log.operateDate!=null">operate_date,</if>
+            <if test="log.timeout!=null">timeout,</if>
         </trim>
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -121,18 +121,26 @@
     <update id="update">
         UPDATE log
         <set>
-            <if test="log.id != null"> id= #{log.id,jdbcType=VARCHAR},</if>
-            <if test="log.type != null"> type= #{log.type,jdbcType=VARCHAR},</if>
-            <if test="log.title != null"> title= #{log.title,jdbcType=VARCHAR},</if>
-            <if test="log.remoteAddr != null"> remote_addr= #{log.remoteAddr,jdbcType=VARCHAR},</if>
-            <if test="log.requestUri != null"> request_uri= #{log.requestUri,jdbcType=VARCHAR},</if>
-            <if test="log.method != null"> method= #{log.method,jdbcType=VARCHAR},</if>
-            <if test="log.params != null"> params= #{log.params,jdbcType=VARCHAR},</if>
-            <if test="log.exception != null"> exception= #{log.exception,jdbcType=VARCHAR},</if>
-            <if test="log.operateDate != null"> operate_date= #{log.operateDate,jdbcType=TIMESTAMP},</if>
-            <if test="log.timeout != null"> timeout= #{log.timeout,jdbcType=VARCHAR}</if>
+            <if test="log.id != null">id= #{log.id,jdbcType=VARCHAR},</if>
+            <if test="log.type != null">type= #{log.type,jdbcType=VARCHAR},</if>
+            <if test="log.title != null">title= #{log.title,jdbcType=VARCHAR},</if>
+            <if test="log.remoteAddr != null">remote_addr= #{log.remoteAddr,jdbcType=VARCHAR},</if>
+            <if test="log.requestUri != null">request_uri= #{log.requestUri,jdbcType=VARCHAR},</if>
+            <if test="log.method != null">method= #{log.method,jdbcType=VARCHAR},</if>
+            <if test="log.params != null">params= #{log.params,jdbcType=VARCHAR},</if>
+            <if test="log.exception != null">exception= #{log.exception,jdbcType=VARCHAR},</if>
+            <if test="log.operateDate != null">operate_date= #{log.operateDate,jdbcType=TIMESTAMP},</if>
+            <if test="log.timeout != null">timeout= #{log.timeout,jdbcType=VARCHAR}</if>
         </set>
         WHERE id = #{log.id,jdbcType=VARCHAR}
     </update>
+
+    <select id="find" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        log
+    </select>
+
 </mapper>
 

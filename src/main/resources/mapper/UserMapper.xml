@@ -20,15 +20,15 @@
     <!--auto generated Code-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="user.id">
         INSERT INTO user (
-            id,
-            user_name,
-            password,
-            birthday
+        id,
+        user_name,
+        password,
+        birthday
         ) VALUES (
-            #{user.id,jdbcType=BIGINT},
-            #{user.userName,jdbcType=VARCHAR},
-            #{user.password,jdbcType=VARCHAR},
-            #{user.birthday,jdbcType=TIMESTAMP}
+        #{user.id,jdbcType=BIGINT},
+        #{user.userName,jdbcType=VARCHAR},
+        #{user.password,jdbcType=VARCHAR},
+        #{user.birthday,jdbcType=TIMESTAMP}
         )
     </insert>
 
