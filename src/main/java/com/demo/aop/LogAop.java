@@ -39,9 +39,8 @@ public class LogAop {
     @Around(value = "pointCut(operationLog)", argNames = "joinPoint,operationLog")
     public Object logAround(ProceedingJoinPoint joinPoint, OperationLog operationLog) {
         Object result = null;
-        log.info("【环绕通知中的--->前置通知】");
         long startTime = System.currentTimeMillis();
-        Log l = Log.builder()
+        Log logEntity = Log.builder()
                 .type("info")
                 .title(operationLog.description())
                 .remoteAddr(request.getRemoteAddr())
@@ -50,19 +49,17 @@ public class LogAop {
                 .params(request.getParameterMap().toString())
                 .operateDate(new Date())
                 .build();
-        logService.insertSelective(l);
+        logService.insertSelective(logEntity);
         try {
             // 执行目标方法
             result = joinPoint.proceed();
-            log.info("【环绕通知中的--->返回通知】");
-            l.setTimeout(String.valueOf(System.currentTimeMillis() - startTime).concat("ms"));
         } catch (Throwable e) {
-            log.info("【环绕通知中的--->异常通知】", e);
-            l.setType("error");
-            l.setException(e.getMessage());
-            l.setTimeout(String.valueOf(System.currentTimeMillis() - startTime).concat("ms"));
+            log.info("", e);
+            logEntity.setType("error");
+            logEntity.setException(e.getMessage());
         } finally {
-            logService.update(l);
+            logEntity.setTimeout(String.valueOf(System.currentTimeMillis() - startTime).concat("ms"));
+            logService.update(logEntity);
         }
         return result;
     }
