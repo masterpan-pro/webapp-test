@@ -1,5 +1,6 @@
 package com.demo.controller;
 
+import com.demo.annotation.OperationLog;
 import com.demo.entity.User;
 import com.demo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +47,7 @@ public class UserController {
         return modelAndView;
     }
 
+    @OperationLog(type = "hello")
     @ResponseBody
     @RequestMapping("json")
     public List<User> index() {
