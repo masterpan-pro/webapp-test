@@ -4,6 +4,7 @@ import com.demo.dao.LogMapper;
 import com.demo.entity.Log;
 import com.demo.service.LogService;
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,9 @@ public class LogServiceImpl implements LogService {
 
     @Resource
     private JdbcTemplate jdbcTemplate;
+
+    @Resource
+    private SqlSessionTemplate sqlSessionTemplate;
 
     @Override
     public int insert(Log log) {
@@ -44,6 +48,9 @@ public class LogServiceImpl implements LogService {
     public List<Log> find() {
         List<Long> count = jdbcTemplate.queryForList("select count(*) from log", Long.class);
         log.info("Log Count: {}", count);
+
+        List<Log> logs = sqlSessionTemplate.selectList("com.demo.dao.LogMapper.find");
+        log.info("Logs: {}", logs);
         return logMapper.find();
     }
 }
