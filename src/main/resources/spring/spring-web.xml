@@ -44,7 +44,7 @@
         <property name="maxInMemorySize" value="40960"/>
         <property name="uploadTempDir">
             <bean class="org.springframework.core.io.ClassPathResource">
-                <constructor-arg value="/uploads"/>
+                <constructor-arg value="/"/>
             </bean>
         </property>
     </bean>
