@@ -41,7 +41,7 @@
     </bean>
 
     <jdbc:initialize-database ignore-failures="ALL">
-        <jdbc:script location="classpath:h2-init/schema.sql"/>
+        <jdbc:script location="classpath:h2-init/schema.sql" encoding="UTF-8"/>
         <jdbc:script location="classpath:h2-init/import-data.sql" encoding="UTF-8"/>
     </jdbc:initialize-database>
 
