@@ -42,6 +42,11 @@
         <property name="defaultEncoding" value="UTF-8"/>
         <property name="maxUploadSize" value="10485760000"/>
         <property name="maxInMemorySize" value="40960"/>
+        <property name="uploadTempDir">
+            <bean class="org.springframework.core.io.ClassPathResource">
+                <constructor-arg value="/uploads"/>
+            </bean>
+        </property>
     </bean>
 
     <mvc:annotation-driven>
