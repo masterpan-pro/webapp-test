@@ -7,6 +7,7 @@ import com.demo.service.LogService;
 import com.demo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.jms.Message;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -34,6 +36,9 @@ public class UserController {
 
     @Autowired
     private LogService logService;
+
+    @Autowired
+    private JmsTemplate jmsTemplate;
 
     @RequestMapping("index")
     public ModelAndView index(ModelAndView modelAndView) {
@@ -63,6 +68,17 @@ public class UserController {
     @RequestMapping("log")
     public List<Log> log() {
         return logService.find();
+    }
+
+    @ResponseBody
+    @RequestMapping("test-mq")
+    public String testMQ() {
+        jmsTemplate.send((session -> {
+            Message message = session.createMessage();
+            message.setStringProperty("name", "MasterPan");
+            return message;
+        }));
+        return null;
     }
 
     @ResponseBody
