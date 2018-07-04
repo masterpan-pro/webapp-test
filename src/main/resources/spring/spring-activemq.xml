@@ -9,15 +9,16 @@
 
     <context:property-placeholder location="classpath:activemq.properties" ignore-unresolvable="true"/>
 
-    <bean id="mqConnectionFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
-        <property name="brokerURL" value="${activemq_url}"/>
-        <property name="userName" value="${activemq_username}"/>
-        <property name="password" value="${activemq_password}"/>
-    </bean>
-
     <bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
-        <property name="targetConnectionFactory" ref="mqConnectionFactory"/>
         <property name="sessionCacheSize" value="100"/>
+        <property name="targetConnectionFactory">
+            <bean class="org.apache.activemq.spring.ActiveMQConnectionFactory">
+                <property name="brokerURL" value="${activemq_url}"/>
+                <property name="userName" value="${activemq_username}"/>
+                <property name="password" value="${activemq_password}"/>
+            </bean>
+        </property>
+
     </bean>
 
     <bean id="topic" class="org.apache.activemq.command.ActiveMQTopic">
@@ -30,12 +31,12 @@
         <property name="pubSubDomain" value="true"/>
     </bean>
 
-    <bean id="topicMessageListen" class="com.demo.activemq.TopicMessageListen"/>
-
     <bean id="defaultMessageListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
         <property name="connectionFactory" ref="connectionFactory"/>
         <property name="destination" ref="topic"/>
-        <property name="messageListener" ref="topicMessageListen"/>
+        <property name="messageListener">
+            <bean class="com.demo.activemq.TopicMessageListen"/>
+        </property>
     </bean>
 
 </beans>
