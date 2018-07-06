@@ -9,16 +9,19 @@
 
     <context:property-placeholder location="classpath:activemq.properties" ignore-unresolvable="true"/>
 
-    <bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
-        <property name="sessionCacheSize" value="100"/>
+    <bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
         <property name="targetConnectionFactory">
-            <bean class="org.apache.activemq.spring.ActiveMQConnectionFactory">
-                <property name="brokerURL" value="${activemq_url}"/>
-                <property name="userName" value="${activemq_username}"/>
-                <property name="password" value="${activemq_password}"/>
+            <bean class="org.apache.activemq.pool.PooledConnectionFactory">
+                <property name="connectionFactory">
+                    <bean class="org.apache.activemq.spring.ActiveMQConnectionFactory">
+                        <property name="brokerURL" value="${activemq_url}"/>
+                        <property name="userName" value="${activemq_username}"/>
+                        <property name="password" value="${activemq_password}"/>
+                    </bean>
+                </property>
+                <property name="maxConnections" value="${activemq_maxConnections}"/>
             </bean>
         </property>
-
     </bean>
 
     <bean id="topic" class="org.apache.activemq.command.ActiveMQTopic">
