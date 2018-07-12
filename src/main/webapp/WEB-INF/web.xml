@@ -30,7 +30,8 @@
             <param-value>
                 classpath:spring/spring-web.xml,
                 classpath:spring/spring-mybatis.xml,
-                classpath:spring/spring-activemq.xml
+                classpath:spring/spring-activemq.xml,
+                classpath:spring/spring-redis.xml
             </param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
