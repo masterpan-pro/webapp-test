@@ -52,7 +52,7 @@
     <mvc:annotation-driven>
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-                <constructor-arg value="UTF-8" />
+                <constructor-arg value="UTF-8"/>
             </bean>
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="supportedMediaTypes">
@@ -79,8 +79,13 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <mvc:resources mapping="/webjars/**" location="/webjars/"/>
+    <!--<mvc:resources mapping="/webjars/**" location="/webjars/"/>-->
     <mvc:resources mapping="/favicon.ico" location="/WEB-INF/favicon.ico"/>
+
+    <!-- Enables swgger ui-->
+    <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+    <bean class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration"/>
 
     <aop:aspectj-autoproxy/>
     <bean class="com.demo.aop.LogAop"/>

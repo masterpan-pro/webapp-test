@@ -5,6 +5,8 @@ import com.demo.entity.Log;
 import com.demo.entity.User;
 import com.demo.service.LogService;
 import com.demo.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
@@ -26,6 +28,7 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+@Api(description = "用户管理")
 @Slf4j
 @Controller
 @RequestMapping("/")
@@ -40,6 +43,7 @@ public class UserController {
     @Autowired
     private JmsTemplate jmsTemplate;
 
+    @ApiOperation(value = "index", httpMethod = "GET")
     @RequestMapping("index")
     public ModelAndView index(ModelAndView modelAndView) {
         User user = new User(null, "admin", "123456", new Timestamp(System.currentTimeMillis()));
