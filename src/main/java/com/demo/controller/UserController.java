@@ -8,6 +8,7 @@ import com.demo.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import net.sourceforge.tess4j.Tesseract;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Controller;
@@ -83,6 +84,14 @@ public class UserController {
             return message;
         }));
         return null;
+    }
+
+    @ResponseBody
+    @RequestMapping("tess4j")
+    public String tess4j() throws Exception {
+        File imageFile = new File("");
+        Tesseract instance = new Tesseract();
+        return instance.doOCR(imageFile);
     }
 
     @ResponseBody
