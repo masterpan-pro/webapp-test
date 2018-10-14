@@ -188,6 +188,7 @@
 
     </dependencies>
 
+    <!--
     <repositories>
         <repository>
             <id>maven</id>
@@ -199,6 +200,7 @@
             </snapshots>
         </repository>
     </repositories>
+	-->
 
     <build>
         <finalName>webapp-test</finalName>
