@@ -15,4 +15,6 @@ public interface UserService {
     int update(User user);
 
     List<User> find();
+
+    void getUserMap();
 }

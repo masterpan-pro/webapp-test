@@ -95,6 +95,13 @@ public class UserController {
     }
 
     @ResponseBody
+    @RequestMapping("userMap")
+    public String testMap() {
+        userService.getUserMap();
+        return null;
+    }
+
+    @ResponseBody
     @RequestMapping("file")
     public void downloadA(HttpServletRequest request,
                           HttpServletResponse response,

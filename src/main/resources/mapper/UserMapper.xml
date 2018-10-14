@@ -87,5 +87,17 @@
         <include refid="Base_Column_List"/>
         from user
     </select>
+
+    <select id="getUserValueMap" resultType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+    </select>
+    
+    <select id="getUserInfoMap" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+    </select>
 </mapper>
 

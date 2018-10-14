@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional("txManager")
@@ -39,5 +40,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> find() {
         return userMapper.find();
+    }
+
+    @Override
+    public void getUserMap() {
+        Map<Long, Map<String, Object>> userValueMap = userMapper.getUserValueMap();
+        Map<Long, User> userInfoMap = userMapper.getUserInfoMap();
+        System.out.println(userValueMap);
+        System.out.println(userInfoMap);
     }
 }
